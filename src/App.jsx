@@ -37,6 +37,16 @@ const App = () => {
     );
   };
 
+  const handleEditItem = (id, newName, newQuantity) => {
+    setItems(
+      items.map((item) =>
+        item.id === id
+          ? { ...item, name: newName, quantity: newQuantity }
+          : item
+      )
+    );
+  };
+
   return (
     <>
       <Header />
@@ -49,6 +59,7 @@ const App = () => {
               item={item}
               onRemove={handleRemoveItem}
               onTogglePurchased={handleTogglePurchased}
+              onEdit={handleEditItem}
             />
           ))}
         </ul>
