@@ -29,6 +29,14 @@ const App = () => {
     setItems(items.filter((item) => item.id !== id));
   };
 
+  const handleTogglePurchased = (id) => {
+    setItems(
+      items.map((item) =>
+        item.id === id ? { ...item, isPurchased: !item.isPurchased } : item
+      )
+    );
+  };
+
   return (
     <>
       <Header />
@@ -36,7 +44,12 @@ const App = () => {
         <AddItemForm onAdd={handleAddItem} />
         <ul>
           {items.map((item) => (
-            <ListItem key={item.id} item={item} onRemove={handleRemoveItem} />
+            <ListItem
+              key={item.id}
+              item={item}
+              onRemove={handleRemoveItem}
+              onTogglePurchased={handleTogglePurchased}
+            />
           ))}
         </ul>
       </main>
