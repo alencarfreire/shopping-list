@@ -7,6 +7,7 @@ import { saveItemsToLocalStorage, getItemsFromlocalStorage } from "./storage";
 
 const App = () => {
   const [items, setItems] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     console.log(
@@ -22,7 +23,7 @@ const App = () => {
   }, [items]);
 
   const handleAddItem = (item) => {
-    setItems([...items, item]);
+    setItems([...items, { ...item, isPurchased: false }]);
   };
 
   const handleRemoveItem = (id) => {
@@ -46,14 +47,42 @@ const App = () => {
       )
     );
   };
+  const filteredItems = items.filter((item) => {
+    if (filter === "purchased") {
+      return item.isPurchased;
+    } else if (filter === "notPurchased") {
+      return !item.isPurchased;
+    }
+    return true; // 'all'
+  });
 
   return (
     <>
       <Header />
       <main className="container mx-auto p-4">
         <AddItemForm onAdd={handleAddItem} />
+        <div className="mb-4 flex justify-center">
+          <button
+            onClick={() => setFilter("all")}
+            className={`button-filter ${filter === "all" ? "active" : ""}`}
+          >
+            Todos
+          </button>
+          <button
+            onClick={() => setFilter("purchased")}
+            className={`button-filter ${filter === "purchased" ? "active" : ""}`}
+          >
+            Comprados
+          </button>
+          <button
+            onClick={() => setFilter("notPurchased")}
+            className={`button-filter ${filter === "notPurchased" ? "active" : ""}`}
+          >
+            Não Comprados
+          </button>
+        </div>
         <ul>
-          {items.map((item) => (
+          {filteredItems.map((item) => (
             <ListItem
               key={item.id}
               item={item}
