@@ -92,7 +92,7 @@ const App = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar item..."
-            className="border p-2 w-full"
+            className="input-search"
           />
         </div>
         <ul>

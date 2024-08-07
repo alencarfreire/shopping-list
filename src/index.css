@@ -18,3 +18,16 @@
   background-color: #007bff;
   color: #fff;
 }
+
+.input-search {
+  border: 1px solid #ddd;
+  padding: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+  transition: border-color 0.3s;
+}
+
+.input-search:focus {
+  border-color: #007bff;
+  outline: none;
+}
