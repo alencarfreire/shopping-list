@@ -8,6 +8,7 @@ import { saveItemsToLocalStorage, getItemsFromlocalStorage } from "./storage";
 const App = () => {
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     console.log(
@@ -47,14 +48,18 @@ const App = () => {
       )
     );
   };
-  const filteredItems = items.filter((item) => {
-    if (filter === "purchased") {
-      return item.isPurchased;
-    } else if (filter === "notPurchased") {
-      return !item.isPurchased;
-    }
-    return true; // 'all'
-  });
+  const filteredItems = items
+    .filter((item) => {
+      if (filter === "purchased") {
+        return item.isPurchased;
+      } else if (filter === "notPurchased") {
+        return !item.isPurchased;
+      }
+      return true; // 'all'
+    })
+    .filter((item) => {
+      return item.name.toLowerCase().includes(searchTerm.toLocaleLowerCase());
+    });
 
   return (
     <>
@@ -80,6 +85,15 @@ const App = () => {
           >
             Não Comprados
           </button>
+        </div>
+        <div className="mb-4">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Buscar item..."
+            className="border p-2 w-full"
+          />
         </div>
         <ul>
           {filteredItems.map((item) => (
