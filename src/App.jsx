@@ -63,51 +63,53 @@ const App = () => {
 
   return (
     <>
-      <Header />
-      <main className="container mx-auto p-4">
-        <AddItemForm onAdd={handleAddItem} />
-        <div className="mb-4 flex justify-center">
-          <button
-            onClick={() => setFilter("all")}
-            className={`button-filter ${filter === "all" ? "active" : ""}`}
-          >
-            Todos
-          </button>
-          <button
-            onClick={() => setFilter("purchased")}
-            className={`button-filter ${filter === "purchased" ? "active" : ""}`}
-          >
-            Comprados
-          </button>
-          <button
-            onClick={() => setFilter("notPurchased")}
-            className={`button-filter ${filter === "notPurchased" ? "active" : ""}`}
-          >
-            Não Comprados
-          </button>
-        </div>
-        <div className="mb-4">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Buscar item..."
-            className="input-search"
-          />
-        </div>
-        <ul>
-          {filteredItems.map((item) => (
-            <ListItem
-              key={item.id}
-              item={item}
-              onRemove={handleRemoveItem}
-              onTogglePurchased={handleTogglePurchased}
-              onEdit={handleEditItem}
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow container mx-auto p-4">
+          <AddItemForm onAdd={handleAddItem} />
+          <div className="flex flex-wrap justify-center items-center mb-4">
+            <button
+              onClick={() => setFilter("all")}
+              className={`button-filter ${filter === "all" ? "active" : ""}`}
+            >
+              Todos
+            </button>
+            <button
+              onClick={() => setFilter("purchased")}
+              className={`button-filter ${filter === "purchased" ? "active" : ""}`}
+            >
+              Comprados
+            </button>
+            <button
+              onClick={() => setFilter("notPurchased")}
+              className={`button-filter ${filter === "notPurchased" ? "active" : ""}`}
+            >
+              Não Comprados
+            </button>
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar item..."
+              className="input-search"
             />
-          ))}
-        </ul>
-      </main>
-      <Footer />
+          </div>
+          <ul className="divide-y divide-gray-300">
+            {filteredItems.map((item) => (
+              <ListItem
+                key={item.id}
+                item={item}
+                onRemove={handleRemoveItem}
+                onTogglePurchased={handleTogglePurchased}
+                onEdit={handleEditItem}
+              />
+            ))}
+          </ul>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 };
